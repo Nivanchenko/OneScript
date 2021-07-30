@@ -38,9 +38,13 @@ namespace ScriptEngine.HostedScript.Library
         public override void SetPropValue(int propNum, IValue newVal)
         {
             // обратная совместимость. Присваивание Консоль = Новый Консоль не должно ничего делать
-            if (!ReferenceEquals(newVal.GetRawValue(), _console))
+            var realVal = newVal.GetRawValue();
+            if (!ReferenceEquals(realVal, _console))
             {
-                throw new InvalidOperationException($"Can't assign {newVal}({newVal.GetType()}) to global property Console");
+                if (realVal.DataType != DataType.Undefined)
+                {
+                    throw new InvalidOperationException($"Can't assign {newVal}({newVal.GetType()}) to global property Console");
+                }
             }
         }
 
