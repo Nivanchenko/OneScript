@@ -40,7 +40,7 @@ namespace ScriptEngine.HostedScript.Library
             // обратная совместимость. Присваивание Консоль = Новый Консоль не должно ничего делать
             if (!ReferenceEquals(newVal.GetRawValue(), _console))
             {
-                throw new InvalidOperationException("Can't assign to global property Console");
+                throw new InvalidOperationException($"Can't assign {newVal}({newVal.GetType()}) to global property Console");
             }
         }
 
